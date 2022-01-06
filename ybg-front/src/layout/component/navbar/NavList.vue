@@ -17,7 +17,7 @@
         </span>
       </div>
       <div class="tabs-close-item" style="float:right" @click="closeAllTab">
-        全部关闭
+        关闭全部
       </div>
     </div>
   </div>
@@ -83,7 +83,8 @@ export default {
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
-  height: 33px;
+  height: 40px;
+  line-height: 40px;
   background: #fff;
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
@@ -101,6 +102,7 @@ export default {
   font-size: 12px;
   margin-top: 4px;
   margin-left: 5px;
+  border-radius: 10px;
 }
 
 .tabs-close-item {
@@ -115,8 +117,9 @@ export default {
   background: #fff;
   padding: 0 8px;
   font-size: 12px;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-left: 5px;
+  border-radius: 10px;
 }
 
 .tabs-view-item-active {
@@ -131,6 +134,7 @@ export default {
   background-color: #5384ed;
   color: #fff;
   border-color: #5384ed;
+  border-radius: 10px;
 }
 
 .tabs-view-item-active:before {

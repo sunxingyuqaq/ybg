@@ -7,7 +7,7 @@
           :rules="loginRules"
           class="login-form"
       >
-        <h3 class="title">楠橘星后台管理系统</h3>
+        <h3 class="title">后台管理系统</h3>
         <el-form-item prop="username">
           <el-input
               v-model="loginForm.username"
@@ -42,12 +42,12 @@
             <span v-else>登 录 中...</span>
           </el-button>
         </el-form-item>
-        <el-form-item label="超级管理员:" >
-          <el-tag effect="dark" type="success">nanjustar</el-tag>
+        <el-form-item label="超级管理员:">
+          <el-tag effect="dark" type="success">superadmin</el-tag>
           <el-tag effect="dark" style="margin-left: 20px">123456</el-tag>
         </el-form-item>
         <el-form-item label="普通管理员:" style="margin-top: -10px">
-          <el-tag effect="dark" type="success"> admin</el-tag>
+          <el-tag effect="dark" type="success">admin</el-tag>
           <el-tag effect="dark" style="margin-left: 20px">123456</el-tag>
         </el-form-item>
 
@@ -95,7 +95,7 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "nanjustar",
+        username: "superadmin",
         password: "123456",
         rememberMe: false,
       },
@@ -124,6 +124,7 @@ export default {
               messageInfo({message: "登陆成功！"});
             } else {
               that.loading = false;
+              messageInfo({type: "error", message: res.message});
             }
           });
         } else {

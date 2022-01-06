@@ -1,4 +1,4 @@
-import {getRequest,paramsPostRequest} from "@/utils/request";
+import {paramsPostJsonRequest} from "@/utils/request";
 
 /**
  *  用户登陆
@@ -8,6 +8,6 @@ import {getRequest,paramsPostRequest} from "@/utils/request";
  * @constructor
  */
 export const Login = (params) => {
-  return paramsPostRequest('/login',params);
+  return paramsPostJsonRequest('/login',params);
 };
 

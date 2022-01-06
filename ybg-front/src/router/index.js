@@ -28,7 +28,7 @@ const routes = [
     },
     {
         path: '/home',
-        name: '楠橘星',
+        name: '橘楠星',
         component: Home,
         redirect: '/welcome',
         children: [

@@ -1,0 +1,73 @@
+package com.ybg.meta.api.security.api;
+
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ybg.meta.api.security.dto.MenuBackDto;
+import com.ybg.meta.api.security.dto.MenuRouterDto;
+import com.ybg.meta.api.security.entity.Menu;
+import com.ybg.meta.api.security.vo.MenuConditionVo;
+import com.ybg.meta.api.security.vo.MenuVo;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 服务类
+ * </p>
+ *
+ * @author nanjustar
+ * @since 2021-11-13
+ */
+public interface MenuService extends IService<Menu> {
+
+    /**
+     * 查询菜单路由信息
+     *
+     * @return {@link MenuRouterDto} 菜单路由信息
+     */
+    List<MenuRouterDto> listMenuRouter();
+
+    /**
+     * 通过id查询子菜单信息
+     *
+     * @param id 菜单id
+     * @return {@link MenuBackDto} 子菜单信息
+     */
+    List<MenuBackDto> listChildrenMenuById(Integer id);
+
+    /**
+     * 查询父级菜单信息
+     *
+     * @return {@link MenuBackDto} 菜单信息
+     */
+    List<MenuBackDto> listParentMenu();
+
+    /**
+     * 新增菜单信息
+     *
+     * @param menuVo 菜单信息 vo类
+     */
+    void saveMenu(MenuVo menuVo);
+
+    /**
+     * 修改菜单信息
+     *
+     * @param menuVo 菜单信息 vo类
+     */
+    void updateMenu(MenuVo menuVo);
+
+    /**
+     * 删除菜单信息
+     *
+     * @param id 菜单id
+     */
+    void deleteMenu(Integer id);
+
+    /**
+     * 条件查询菜单信息
+     *
+     * @param menuConditionVo 菜单条件 vo 类
+     * @return {@link MenuBackDto} 菜单信息
+     */
+    List<MenuBackDto> listMenuByCondition(MenuConditionVo menuConditionVo);
+}

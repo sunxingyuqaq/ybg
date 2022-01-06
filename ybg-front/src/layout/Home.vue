@@ -33,8 +33,7 @@ export default {
   },
   created() {
     this.$notify.success({
-      message: "欢迎👏来到 楠橘星后台管理系统。" +
-          "详情访问 <a href='https://gitee.com/duan_nan/nanjustar-template'>https://gitee.com/duan_nan/nanjustar-template</a>",
+      message: "欢迎👏进入后台管理系统。",
       duration: 5000,
       dangerouslyUseHTMLString: true,
     })

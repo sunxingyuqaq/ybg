@@ -27,7 +27,7 @@ export default {
   },
   data() {
     return {
-      title: '楠橘星后台管理系统',
+      title: '后台管理系统',
       logo: LogoImg,
     }
   }
