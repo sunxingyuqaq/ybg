@@ -1,0 +1,5 @@
+server:
+  port: 8888
+sa-token:
+  is-log: false
+  is-print: false

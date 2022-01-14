@@ -14,6 +14,8 @@ import com.ybg.meta.api.security.vo.LoginVo;
 import com.ybg.meta.business.runtime.SecurityContextHolder;
 import com.ybg.meta.core.constant.CommonConst;
 import com.ybg.meta.core.constant.RedisConst;
+import com.ybg.meta.core.constant.SystemConst;
+import com.ybg.meta.core.constant.TokenConst;
 import com.ybg.meta.core.enums.HttpResponseEnum;
 import com.ybg.meta.core.enums.RoleLevelEnum;
 import com.ybg.meta.core.result.ResponseResult;
@@ -50,18 +52,25 @@ public class UserController {
                 .eq(User::getPassword, DigestUtil.md5Hex(loginVo.getPassword())));
         if (user != null) {
             SaLoginModel model = SaLoginModel.create()
-                    .setDevice("pc")
+                    .setDevice(SystemConst.LOGIN_TYPE_PC)
                     .setIsLastingCookie(loginVo.getRememberMe());
             StpUtil.login(user.getUserId(), model);
             StpUtil.getSession().set(String.format(RedisConst.USER_CACHE_KEY_PREFIX, user.getUserId()), user);
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Dict set = Dict.create()
-                    .set("tokenName", SaManager.getConfig().getTokenName())
-                    .set("tokenPrefix", SaManager.getConfig().getTokenPrefix())
-                    .set("tokenValue", tokenInfo.getTokenValue());
-            return ResponseResult.success("登录成功！", JSON.toJSONString(set));
+                    .set(TokenConst.TOKEN_NAME, SaManager.getConfig().getTokenName())
+                    .set(TokenConst.TOKEN_PREFIX, SaManager.getConfig().getTokenPrefix())
+                    .set(TokenConst.TOKEN_VALUE, tokenInfo.getTokenValue());
+            return ResponseResult.success(SystemConst.LOGIN_SUCCESS, JSON.toJSONString(set));
         }
         return ResponseResult.fail(HttpResponseEnum.USER_USERNAME_AND_PASSWORD_NOT_CORRECT);
+    }
+
+    @PostMapping("/logout")
+    public ResponseResult<String> logout() {
+        int loginId = StpUtil.getLoginIdAsInt();
+        StpUtil.logout(loginId, SystemConst.LOGIN_TYPE_PC);
+        return ResponseResult.success(SystemConst.LOGOUT_SUCCESS);
     }
 
     /**
@@ -76,7 +85,7 @@ public class UserController {
         List<String> roleList = StpUtil.getRoleList();
         userinfo.setRoleList(roleList);
         userinfo.setConsumerLevel(RoleLevelEnum.getGenderNameByCode(userinfo.getRoleList()));
-        return ResponseResult.success("用户信息获取成功！", userinfo);
+        return ResponseResult.success(SystemConst.LOGIN_INFO_SUCCESS, userinfo);
     }
 
 }
