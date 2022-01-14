@@ -72,7 +72,7 @@ public enum HttpResponseEnum implements ResponseEnum {
     /**
      * json格式异常！
      */
-    JSON_ERROR_EXCEPTION(50002, "json格式异常！"),
+    JSON_ERROR_EXCEPTION(50002, "json格式化异常！"),
     /**
      * 系统异常！
      */

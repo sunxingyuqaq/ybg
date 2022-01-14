@@ -11,8 +11,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ybg.meta.api.security.dto.UserInfoDto;
 import com.ybg.meta.api.security.entity.User;
 import com.ybg.meta.api.security.vo.LoginVo;
-import com.ybg.meta.business.holder.CurrentUserHolder;
+import com.ybg.meta.business.runtime.SecurityContextHolder;
 import com.ybg.meta.core.constant.CommonConst;
+import com.ybg.meta.core.constant.RedisConst;
 import com.ybg.meta.core.enums.HttpResponseEnum;
 import com.ybg.meta.core.enums.RoleLevelEnum;
 import com.ybg.meta.core.result.ResponseResult;
@@ -41,9 +42,6 @@ public class UserController {
     @Resource
     private UserMapper userMapper;
 
-    @Resource
-    private CurrentUserHolder currentUserHolder;
-
     @PostMapping("login")
     public ResponseResult<String> login(@RequestBody LoginVo loginVo) {
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, loginVo.getUsername())
@@ -55,6 +53,7 @@ public class UserController {
                     .setDevice("pc")
                     .setIsLastingCookie(loginVo.getRememberMe());
             StpUtil.login(user.getUserId(), model);
+            StpUtil.getSession().set(String.format(RedisConst.USER_CACHE_KEY_PREFIX, user.getUserId()), user);
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             Dict set = Dict.create()
                     .set("tokenName", SaManager.getConfig().getTokenName())
@@ -73,7 +72,7 @@ public class UserController {
     @ApiOperation(value = "获取用户信息")
     @GetMapping("/getUserInfo")
     public ResponseResult<UserInfoDto> getUserInfo() {
-        UserInfoDto userinfo = BeanCopyUtil.copyObject(currentUserHolder.getCurrentUser(), UserInfoDto.class);
+        UserInfoDto userinfo = BeanCopyUtil.copyObject(SecurityContextHolder.getCurrentLoginUser(), UserInfoDto.class);
         List<String> roleList = StpUtil.getRoleList();
         userinfo.setRoleList(roleList);
         userinfo.setConsumerLevel(RoleLevelEnum.getGenderNameByCode(userinfo.getRoleList()));

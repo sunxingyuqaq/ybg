@@ -5,18 +5,18 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ybg.meta.api.security.entity.User;
 import com.ybg.meta.api.system.api.LoginLogService;
 import com.ybg.meta.api.system.dto.LoginLogDto;
 import com.ybg.meta.api.system.entity.LoginLog;
 import com.ybg.meta.api.system.vo.LoginLogVo;
-import com.ybg.meta.business.holder.CurrentUserHolder;
+import com.ybg.meta.business.runtime.SecurityContextHolder;
 import com.ybg.meta.core.constant.ServiceErrorConst;
 import com.ybg.meta.core.result.PageResult;
 import com.ybg.meta.core.utils.BeanCopyUtil;
 import com.ybg.meta.core.utils.IpUtils;
 import com.ybg.meta.mapper.mapper.system.LoginLogMapper;
 import eu.bitwalker.useragentutils.UserAgent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +34,6 @@ import java.util.List;
  */
 @Service
 public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> implements LoginLogService {
-
-    @Autowired
-    private CurrentUserHolder holder;
 
     @Override
     public PageResult<LoginLogDto> listLoginLog(LoginLogVo loginLogVo) {
@@ -63,8 +60,9 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
         String nickname = "";
 
         if (success) {
-            usename = holder.getCurrentUser().getUsername();
-            nickname = holder.getCurrentUser().getNickname();
+            User currentLoginUser = SecurityContextHolder.getCurrentLoginUser();
+            usename = currentLoginUser.getUsername();
+            nickname = currentLoginUser.getNickname();
         }
         else {
             usename = request.getParameter("username");

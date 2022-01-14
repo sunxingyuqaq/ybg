@@ -15,7 +15,7 @@ import com.ybg.meta.api.security.entity.User;
 import com.ybg.meta.api.security.entity.UserRole;
 import com.ybg.meta.api.security.vo.MenuConditionVo;
 import com.ybg.meta.api.security.vo.MenuVo;
-import com.ybg.meta.business.holder.CurrentUserHolder;
+import com.ybg.meta.business.runtime.SecurityContextHolder;
 import com.ybg.meta.core.constant.CommonConst;
 import com.ybg.meta.core.constant.RedisConst;
 import com.ybg.meta.core.constant.ServiceErrorConst;
@@ -45,8 +45,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Autowired
     private RedisCache redisCache;
-    @Autowired
-    private CurrentUserHolder currentUserHolder;
     @Autowired
     private MenuRoleMapper menuRoleMapper;
     @Autowired
@@ -194,7 +192,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
      */
     private List<Integer> listConsumerRoleIds() {
         /*------------------------  获取当前用户角色信息开始  -----------------------------*/
-        User consumer = currentUserHolder.getCurrentUser();
+        User consumer = SecurityContextHolder.getCurrentLoginUser();
         return userRoleMapper.selectList(new LambdaQueryWrapper<UserRole>()
                         .eq(UserRole::getUserId, consumer.getUserId()))
                 .stream()

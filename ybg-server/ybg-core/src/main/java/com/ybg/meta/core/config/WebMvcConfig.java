@@ -39,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String collect = String.join(",", SecurityConst.WHITE_PAGE_LIST);
-        log.info("【白名单地址：】 {}", collect);
+        log.info("【本系统配置的白名单地址：】 {}", collect);
         registry.addInterceptor(new SaRouteInterceptor((req, res, handler) -> {
                     SaRouter.match("/**").notMatch(SecurityConst.WHITE_PAGE_LIST).check(r -> StpUtil.checkLogin());
                     SaRouter.match("/dict/**", r -> StpUtil.hasPermission("/dict"));

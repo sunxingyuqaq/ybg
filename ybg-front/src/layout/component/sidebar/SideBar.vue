@@ -13,24 +13,20 @@
             background-color="#304156"
             text-color="#fff"
             active-text-color="#5a9cf8"
-            router
-        >
+            router>
           <el-menu-item
               v-for="(menu, index) in this.menuList"
               :key="index"
               :index="menu.path"
-              v-if="menu.component !== 'Layout'"
-          >
+              v-if="menu.component !== 'Layout'">
             <el-icon :class="menu.icon"/>
             <span>{{ menu.menuName }}</span>
           </el-menu-item>
-
           <el-submenu
               v-if="menu.component === 'Layout'"
               v-for="(menu, index) in this.menuList"
               :key="index"
-              :index="menu.path"
-          >
+              :index="menu.path">
             <template slot="title">
               <i :class="menu.icon"></i>
               <span>{{ menu.menuName }}</span>
@@ -38,8 +34,7 @@
             <el-menu-item
                 v-for="(item, index) in menu.children"
                 :key="index"
-                :index="item.path"
-            >
+                :index="item.path">
               <el-icon :class="item.icon"/>
               <span>{{ item.menuName }}</span>
             </el-menu-item>
@@ -67,7 +62,7 @@ export default {
 
 <style scoped>
 .main-container {
-  width: 101%;
+  width: 100%;
   height: 100%;
 }
 

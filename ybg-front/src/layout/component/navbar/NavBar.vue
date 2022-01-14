@@ -29,7 +29,6 @@
           <el-dropdown-item divided icon="el-icon-moon" command="logout">退出登陆</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-
     </div>
   </div>
 </template>

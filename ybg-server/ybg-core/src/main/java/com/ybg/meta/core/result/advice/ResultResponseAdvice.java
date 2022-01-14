@@ -46,6 +46,12 @@ public class ResultResponseAdvice implements ResponseBodyAdvice<Object> {
         return body;
     }
 
+    /**
+     * 去除项目名 contextPath
+     *
+     * @param request r
+     * @return s
+     */
     public String getUri(ServerHttpRequest request) {
         HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
         String requestUri = servletRequest.getRequestURI();

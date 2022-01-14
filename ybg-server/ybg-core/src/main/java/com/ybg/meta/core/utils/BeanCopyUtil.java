@@ -1,5 +1,8 @@
 package com.ybg.meta.core.utils;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +11,7 @@ import java.util.List;
  *
  * @author 12870
  */
+@Slf4j
 public class BeanCopyUtil {
 
     /**
@@ -22,11 +26,11 @@ public class BeanCopyUtil {
         try {
             temp = target.newInstance();
             if (null != source) {
-                org.springframework.beans.BeanUtils.copyProperties(source, temp);
+                BeanUtils.copyProperties(source, temp);
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return temp;
     }
@@ -47,6 +51,5 @@ public class BeanCopyUtil {
         }
         return list;
     }
-
 
 }
