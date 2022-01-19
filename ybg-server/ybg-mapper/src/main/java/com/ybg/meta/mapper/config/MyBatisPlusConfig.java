@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author 12870
+ * @author admin
  */
 @Configuration
 @MapperScan("com.ybg.meta.mapper.mapper.*")

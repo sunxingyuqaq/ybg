@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 复制对象或集合属性
  *
- * @author 12870
+ * @author admin
  */
 @Slf4j
 public class BeanCopyUtil {

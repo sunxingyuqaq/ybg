@@ -1,7 +1,7 @@
 package com.ybg.meta.core.constant;
 
 /**
- * @author 12870
+ * @author admin
  */
 public class SecurityConst {
 

@@ -1,7 +1,7 @@
 package com.ybg.meta.core.enums;
 
 /**
- * @author 12870
+ * @author admin
  */
 
 public enum LogEnum {

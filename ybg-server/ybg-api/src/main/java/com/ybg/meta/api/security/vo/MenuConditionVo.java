@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @author 12870
+ * @author admin
  */
 @Data
 public class MenuConditionVo {

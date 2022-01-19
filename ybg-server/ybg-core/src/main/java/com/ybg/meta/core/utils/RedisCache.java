@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * spring redis 工具类
  *
- * @author 12870
+ * @author admin
  */
 @Component
 @SuppressWarnings("all")

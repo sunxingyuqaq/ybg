@@ -10,6 +10,7 @@ public interface RedisCacheBusiness {
 
     /**
      * 缓存图标信息
+     *
      * @throws Exception e
      */
     void cacheIconList() throws Exception;
